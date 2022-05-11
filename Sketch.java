@@ -8,7 +8,10 @@ public class Sketch extends PApplet {
   boolean blnAPressed = false;
   boolean blnSPressed = false;
   boolean blnDPressed = false;
-  float fltPlayerSpeed = 5;
+  int intPlayerSpeed = 3;
+  int intCircleSpeed = 5;
+  boolean blnDownPressed = false;
+  boolean blnUpPressed = false;
 
 
 
@@ -67,16 +70,16 @@ public class Sketch extends PApplet {
     fill(0, 0, 255);
     ellipse(fltPlayerX, fltPlayerY, 25, 25);
     if (blnWPressed){
-      fltPlayerY -= fltPlayerSpeed;
+      fltPlayerY -= intPlayerSpeed;
     }
     if (blnSPressed){
-      fltPlayerY += fltPlayerSpeed;
+      fltPlayerY += intPlayerSpeed;
     }
     if (blnAPressed){
-      fltPlayerX -= fltPlayerSpeed;
+      fltPlayerX -= intPlayerSpeed;
     }
     if (blnDPressed){
-      fltPlayerX += fltPlayerSpeed;
+      fltPlayerX += intPlayerSpeed;
     }
     for (int i = 0; i < fltCircleY.length; i++){
       if(dist(fltPlayerX + 12.5f, fltPlayerY + 12.5f, fltCircleX[i], fltCircleY[i]) < 25){
@@ -86,6 +89,12 @@ public class Sketch extends PApplet {
   }
 
   public void keyPressed() {
+    if (keyCode == DOWN) {
+      blnDownPressed = true;
+    }
+    else if (keyCode == UP) {
+      blnUpPressed = true;
+    }
     if (key == 'w') {
       blnWPressed = true;
     }
