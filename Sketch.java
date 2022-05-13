@@ -1,5 +1,10 @@
 import processing.core.PApplet;
 
+/**
+ * Description: This program is a game where the user must control their player circle to dodge falling snow
+ * @author: L. Pei
+ */
+
 public class Sketch extends PApplet {
 	// global variables
   boolean blnWPressed = false;
@@ -8,15 +13,15 @@ public class Sketch extends PApplet {
   boolean blnDPressed = false;
   boolean blnDownPressed = false;
   boolean blnUpPressed = false;
-  int intPlayerX = 25;
-  int intPlayerY = 500;
+  int intPlayerX = 300;
+  int intPlayerY = 550;
   int intPlayerSpeed = 3;
   int intCircleSpeed = 3;
   int intLives = 3;
 
 
 
-  // initiate arrays
+  // create empty arrays
   float[] fltCircleX = new float[25];
   float[] fltCircleY = new float[25];
   boolean[] ballHideStatus = new boolean[25];
@@ -35,7 +40,7 @@ public class Sketch extends PApplet {
    * values here i.e background, stroke, fill etc.
    */
   public void setup() {
-    // assign random values to the arrays to create coordinates for use in the draw method
+    // fill the arrays with random values to create coordinates for use in the draw method
     for (int i = 0; i < fltCircleX.length; i++) {
       fltCircleX[i] = random(width);
     }
@@ -51,8 +56,8 @@ public class Sketch extends PApplet {
     background(0);
     // draws 25 snowflakes travelling down the screen in random locations using fltCircleX and fltCircleY arrays
     for (int i = 0; i < fltCircleY.length; i++) {
-      // the snowflakes will not draw if ballHideStatus[i] is true
-      if (!ballHideStatus[i]){
+      // the snowflakes will be drawn if ballHideStatus[i] is true
+      if (!ballHideStatus[i]) {
         fill(255);
         ellipse(fltCircleX[i], fltCircleY[i], 50, 50);
         fltCircleY[i] += intCircleSpeed;
@@ -66,52 +71,54 @@ public class Sketch extends PApplet {
 
     // controls the speed of the snowflakes using arrow keys: up slows, down speeds up
     if (blnUpPressed && intCircleSpeed > 1) {
-      intCircleSpeed -=1;
+      intCircleSpeed--;
     } 
-    else if (blnDownPressed && intCircleSpeed < 25){
-      intCircleSpeed +=1;
+    else if (blnDownPressed && intCircleSpeed < 25) {
+      intCircleSpeed++;
     }
     
-    // draws a blue player circle to the screen, who is controlled using the wasd keys. 
+    // draws a blue player circle to the screen
     fill(0, 0, 255);
     ellipse(intPlayerX, intPlayerY, 25, 25);
-    if (blnWPressed){
+
+    // controls the player circle's movement using wasd keys
+    if (blnWPressed) {
       intPlayerY -= intPlayerSpeed;
     }
-    if (blnSPressed){
+    if (blnSPressed) {
       intPlayerY += intPlayerSpeed;
     }
-    if (blnAPressed){
+    if (blnAPressed) {
       intPlayerX -= intPlayerSpeed;
     }
-    if (blnDPressed){
+    if (blnDPressed) {
       intPlayerX += intPlayerSpeed;
     }
 
     // gives the player three lives, and a life is lost every time the player circle touches a snowflake
-    for (int i = 0; i < fltCircleY.length; i++){
-      if(dist(intPlayerX, intPlayerY, fltCircleX[i], fltCircleY[i]) < 37.5){
+    for (int i = 0; i < fltCircleY.length; i++) {
+      if (dist(intPlayerX, intPlayerY, fltCircleX[i], fltCircleY[i]) < 37.5) {
         fltCircleY[i] = 0;
         intLives -= 1;
       }
     }
 
     // draws three squares in the top right of the screen to show the user how many lives they have
-    for (int i = 0; i < intLives; i++){
+    for (int i = 0; i < intLives; i++) {
       fill(255, 0, 0);
       rect(550 - (i * 50), 30, 30, 30);
     }
 
     // if the user has no more lives, a white rectange is drawn to cover the entire screen
-    if (intLives <= 0){
+    if (intLives <= 0) {
       fill(255);
       rect(0, 0, width, height);
     }
 
     // if the mouse is pressed within a snowflake, ballHideStatus[i] is changed to true
-    for(int i = 0; i < fltCircleY.length; i++){
-      if(dist(mouseX, mouseY, (fltCircleX[i]), fltCircleY[i]) <= 25){
-        if(mousePressed){
+    for (int i = 0; i < fltCircleY.length; i++) {
+      if (dist(mouseX, mouseY, (fltCircleX[i]), fltCircleY[i]) <= 25) {
+        if (mousePressed) {
           ballHideStatus[i] = true;
         }
       }
@@ -152,7 +159,7 @@ public class Sketch extends PApplet {
     else if (keyCode == UP) {
       blnUpPressed = false;
     }
-    if (key == 'w') {
+    else if (key == 'w') {
       blnWPressed = false;
     }
     else if (key == 's') {
@@ -164,6 +171,5 @@ public class Sketch extends PApplet {
     else if (key == 'd') {
       blnDPressed = false;
     }
-  }
-  
+  }  
 }
