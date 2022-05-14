@@ -45,7 +45,7 @@ public class Sketch extends PApplet {
       fltCircleX[i] = random(width);
     }
     for (int i = 0; i < fltCircleY.length; i++) {
-      fltCircleY[i] = random(height - 100);
+      fltCircleY[i] = random(height - 150);
     }
   }
 
