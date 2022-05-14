@@ -19,13 +19,10 @@ public class Sketch extends PApplet {
   int intCircleSpeed = 3;
   int intLives = 3;
 
-
-
   // create empty arrays
   float[] fltCircleX = new float[25];
   float[] fltCircleY = new float[25];
   boolean[] ballHideStatus = new boolean[25];
-
 
   /**
    * Called once at the beginning of execution, put your size all in this method
